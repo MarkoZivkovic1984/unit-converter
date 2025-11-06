@@ -1,0 +1,25 @@
+name: Python CI
+
+# Run workflow on every push
+on: [push]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout your code
+      - uses: actions/checkout@v4
+
+      # 2️⃣ Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4️⃣ Run syntax check
+      - name: Syntax check
+        run: python -m py_compile converter.py
