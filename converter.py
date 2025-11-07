@@ -2,6 +2,7 @@ from pint import UnitRegistry
 from tkinter import *
 from tkinter import ttk
 import tempfile
+import sys
 merne_Kategorije = {
     "Stopa": "ft",
     "Inc": "in",
@@ -58,21 +59,21 @@ def createLabel():
 
 root = Tk()
 root.configure(padx=20,pady=20)
-ICON = (b'\x00\x00\x01\x00\x01\x00\x10\x10\x00\x00\x01\x00\x08\x00h\x05\x00\x00'
-        b'\x16\x00\x00\x00(\x00\x00\x00\x10\x00\x00\x00 \x00\x00\x00\x01\x00'
-        b'\x08\x00\x00\x00\x00\x00@\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-        b'\x00\x01\x00\x00\x00\x01') + b'\x00'*1282 + b'\xff'*64
+if sys.platform.startswith("win"):
+    ICON = (b'\x00\x00\x01\x00\x01\x00\x10\x10\x00\x00\x01\x00\x08\x00h\x05\x00\x00'
+            b'\x16\x00\x00\x00(\x00\x00\x00\x10\x00\x00\x00 \x00\x00\x00\x01\x00'
+            b'\x08\x00\x00\x00\x00\x00@\x05\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+            b'\x00\x01\x00\x00\x00\x01') + b'\x00'*1282 + b'\xff'*64
 
-_, ICON_PATH = tempfile.mkstemp()
+    _, ICON_PATH = tempfile.mkstemp()
 # funkcija za prozor providna ikona i bez teksta "Tk"
-with open(ICON_PATH, 'wb') as icon_file:
-    icon_file.write(ICON)
-root.iconbitmap(default=ICON_PATH)
+    with open(ICON_PATH, 'wb') as icon_file:
+        icon_file.write(ICON)
+    root.iconbitmap(default=ICON_PATH)
+    root.wm_attributes('-transparentcolor')
 root.config(borderwidth=10)
 root.title('CONVERTER')
 root.geometry('400x370')
-root.wm_attributes('-transparentcolor')
-
 kolicina_value = StringVar()
 mera=StringVar()
 mera1=StringVar()
