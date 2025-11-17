@@ -16,7 +16,7 @@ merne_Kategorije = {
     "Unca": "oz",
     "Funta": "lb",
     "Kilogram": "kg",
-    "Gram": "gr",
+    "Gram": "g",
     "Miligram": 'mg',
     "Celzijus": "degC",
     "Farenhajt": "degF",
