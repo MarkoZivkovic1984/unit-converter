@@ -71,7 +71,6 @@ if sys.platform.startswith("win"):
             b'\x00\x01\x00\x00\x00\x01') + b'\x00'*1282 + b'\xff'*64
 
     _, ICON_PATH = tempfile.mkstemp()
-    # funkcija za prozor providna ikona i bez teksta "Tk"
     with open(ICON_PATH, 'wb') as icon_file:
         icon_file.write(ICON)
     root.iconbitmap(default=ICON_PATH)
