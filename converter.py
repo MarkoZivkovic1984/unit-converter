@@ -16,7 +16,7 @@ merne_Kategorije = {
     "Unca": "oz",
     "Funta": "lb",
     "Kilogram": "kg",
-    "Gram": "gr",
+    "Gram": "g",
     "Miligram": 'mg',
     "Celzijus": "degC",
     "Farenhajt": "degF",
@@ -47,8 +47,13 @@ def createLabel():
         resultat = result.to(b)
         text = f"{resultat:.2f}"                     # pretvara kolicinu pozvane jedinice u trazenu
     except Exception as x:
-
-        text = str(x)
+        for text in str(x):
+            if 'could not convert string to float' in str(x):
+                text = 'Ubaci Kolicinu.'
+            elif 'Cannot convert from' in str(x):
+                text = 'Pogresne merne jedinice.' 
+            elif "''" in str(x):
+                text = 'Ubacite merne jedinice.'
     if result_label is None:
         result_label = Label(root, text=text, wraplength=300, font='bold')
         result_label.grid(row=9, column=1, pady=20, columnspan=2, sticky='n')
@@ -66,7 +71,6 @@ if sys.platform.startswith("win"):
             b'\x00\x01\x00\x00\x00\x01') + b'\x00'*1282 + b'\xff'*64
 
     _, ICON_PATH = tempfile.mkstemp()
-# funkcija za prozor providna ikona i bez teksta "Tk"
     with open(ICON_PATH, 'wb') as icon_file:
         icon_file.write(ICON)
     root.iconbitmap(default=ICON_PATH)
@@ -74,6 +78,8 @@ if sys.platform.startswith("win"):
 root.config(borderwidth=10)
 root.title('CONVERTER')
 root.geometry('400x370')
+
+
 kolicina_value = StringVar()
 mera=StringVar()
 mera1=StringVar()
